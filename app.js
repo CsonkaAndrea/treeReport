@@ -1,9 +1,15 @@
 {
     class Parks {
-        constructor(name, buildYear, numberOfTrees) {
+        constructor(name, buildYear, numberOfTrees, area) {
             this.name = name;
             this.buildYear = buildYear;
             this.numberOfTrees = numberOfTrees;
+            this.area = area;
+        }
+
+        density() {
+            const result = this.area / this.numberOfTrees
+            return result
         }
 
         calculateAge() {
@@ -33,14 +39,9 @@
         }
     }
 
-    const parkOne = new Parks('Big One', 1990, 3600)
-    const { numberOfTrees: parkOneNum } = parkOne
-
-    const parkTwo = new Parks('Old One', 1870, 123)
-    const { numberOfTrees: parkTwoNum } = parkTwo
-
-    const parkThree = new Parks('Park', 1985, 501)
-    const { numberOfTrees: parkThreeNum } = parkThree
+    const parkOne = new Parks('Big One', 1990, 3600, 53330)
+    const parkTwo = new Parks('Old One', 1870, 123, 457770)
+    const parkThree = new Parks('Park', 1985, 501, 776000)
 
     const streetOne = new Streets('01', 1984, 7800)
     const streetTwo = new Streets('02', 1867, 13004, 'big')
@@ -48,7 +49,7 @@
     const streetFour = new Streets('04', 1963, 3200, 'small')
 
 
-    const trees = [parkOneNum, parkTwoNum, parkThreeNum]
+    const trees = [parkOne.density(), parkTwo.density(), parkThree.density()]
     const ages = [parkOne.calculateAge(), parkTwo.calculateAge(), parkThree.calculateAge()]
     const length = [streetOne.returnLength(), streetTwo.returnLength(), streetThree.returnLength(), streetFour.returnLength()]
     const classi = [streetOne.streetClassification(), streetTwo.streetClassification(), streetThree.streetClassification(), streetFour.streetClassification()]
@@ -59,7 +60,7 @@
         for (let param of arguments) {
             sum += param
         }
-        return sum
+        return Math.round(sum)
     }
 
     function averageCounter(sum, args) {
@@ -80,7 +81,7 @@
         return result
     }
 
-    const resultOne = averageCounter(counter(...trees), ...trees)
+    const resultOne = counter(...trees)
     const resultTwo = averageCounter(counter(...ages), ...ages)
     const resultThree = stringFromArray(parkMeasure(...treeNumber))
     const resultFourPerOne = counter(...length)
